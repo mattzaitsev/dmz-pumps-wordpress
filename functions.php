@@ -16,7 +16,9 @@ function dmz_pumps_setup() {
 add_action('after_setup_theme', 'dmz_pumps_setup');
 
 function dmz_pumps_assets() {
-    wp_enqueue_style('dmz-pumps-style', get_stylesheet_uri(), [], wp_get_theme()->get('Version'));
+    $version = wp_get_theme()->get('Version');
+    wp_enqueue_style('dmz-pumps-style', get_stylesheet_uri(), [], $version);
+    wp_enqueue_style('dmz-pumps-featured-products', get_template_directory_uri() . '/featured-products.css', ['dmz-pumps-style'], filemtime(get_template_directory() . '/featured-products.css'));
 }
 add_action('wp_enqueue_scripts', 'dmz_pumps_assets');
 
