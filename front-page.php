@@ -1,128 +1,64 @@
 <?php get_header(); ?>
-<?php
-$hero_product = null;
-if (class_exists('WooCommerce')) {
-    $hero_products = wc_get_products([
-        'limit'   => 1,
-        'status'  => 'publish',
-        'orderby' => 'date',
-        'order'   => 'DESC',
-    ]);
-    if (!empty($hero_products)) $hero_product = $hero_products[0];
-}
-?>
-<main>
-<section class="dmz-slider" data-dmz-slider>
-  <div class="dmz-slide is-active dmz-slide-product">
-    <div class="dmz-container dmz-slide-inner">
-      <div class="dmz-slide-copy">
-        <div class="dmz-slide-label">DMZ Pumps • Portable Fire Systems</div>
-        <h1>Field-ready pumping power.</h1>
-        <p>Portable fire and water-transfer equipment built for fast deployment, straightforward service, and demanding conditions.</p>
-        <div class="dmz-actions"><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">Shop Pumps</a><a class="dmz-btn light" href="<?php echo esc_url(dmz_product_category_url('portable-fire-pumps')); ?>">View Equipment</a></div>
-      </div>
-      <div class="dmz-slide-product-art">
-        <?php if ($hero_product): ?>
-          <a href="<?php echo esc_url($hero_product->get_permalink()); ?>"><?php echo $hero_product->get_image('woocommerce_single'); ?></a>
-        <?php else: ?>
-          <div class="dmz-product-placeholder">DMZ</div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-
-  <div class="dmz-slide dmz-slide-photo" style="background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.45) 52%,rgba(0,0,0,.08)),url('https://images.unsplash.com/photo-1561439740-e8863909de77?auto=format&fit=crop&q=85&w=2200');">
-    <div class="dmz-container dmz-slide-inner">
-      <div class="dmz-slide-copy">
-        <div class="dmz-slide-label">Fire Protection</div>
-        <h2>Water where the response needs it.</h2>
-        <p>Portable pumping systems for property protection, wildland operations, emergency supply, and remote drafting.</p>
-        <a class="dmz-btn red" href="<?php echo esc_url(dmz_product_category_url('portable-fire-pumps')); ?>">Explore Fire Pumps</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="dmz-slide dmz-slide-photo" style="background-image:linear-gradient(90deg,rgba(0,0,0,.84),rgba(0,0,0,.38) 58%,rgba(0,0,0,.12)),url('https://images.unsplash.com/photo-1774599730994-79221ac4e74d?auto=format&fit=crop&q=85&w=2200');">
-    <div class="dmz-container dmz-slide-inner">
-      <div class="dmz-slide-copy">
-        <div class="dmz-slide-label">Emergency & Municipal</div>
-        <h2>Built for rapid deployment.</h2>
-        <p>Move water quickly with equipment designed around practical operation, hose deployment, and field accessibility.</p>
-        <a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">Shop Equipment</a>
-      </div>
-    </div>
-  </div>
-
-  <button class="dmz-slider-arrow prev" type="button" aria-label="Previous slide" data-dmz-prev>‹</button>
-  <button class="dmz-slider-arrow next" type="button" aria-label="Next slide" data-dmz-next>›</button>
-  <div class="dmz-slider-dots" aria-label="Hero slider navigation">
-    <button class="is-active" type="button" aria-label="Slide 1" data-dmz-dot="0"></button>
-    <button type="button" aria-label="Slide 2" data-dmz-dot="1"></button>
-    <button type="button" aria-label="Slide 3" data-dmz-dot="2"></button>
-  </div>
-</section>
-
-<section class="dmz-quickstrip">
-  <div class="dmz-container dmz-quickstrip-grid">
-    <a href="<?php echo esc_url(dmz_product_category_url('portable-fire-pumps')); ?>"><span class="dmz-quick-icon">↗</span><div><strong>Portable Fire Pumps</strong><small>Rapid-deployment pumping systems</small></div></a>
-    <a href="<?php echo esc_url(dmz_product_category_url('parts')); ?>"><span class="dmz-quick-icon">⚙</span><div><strong>Parts & Service</strong><small>Replacement and service components</small></div></a>
-    <a href="<?php echo esc_url(dmz_product_category_url('accessories')); ?>"><span class="dmz-quick-icon">◫</span><div><strong>Hose & Accessories</strong><small>Valves, hose, fittings and hardware</small></div></a>
-  </div>
-</section>
-
-<section class="dmz-section dmz-image-categories">
+<main class="dmz-home-shell">
+<section class="dmz-home-intro">
   <div class="dmz-container">
-    <div class="dmz-section-head"><div><div class="dmz-eyebrow">Shop by Application</div><h2>Equipment for the job.</h2></div><p>A more visual way to find the right pump, parts, and accessories for the way the system will actually be used.</p></div>
-    <div class="dmz-image-tile-grid">
-      <a class="dmz-image-tile large" href="<?php echo esc_url(dmz_product_category_url('portable-fire-pumps')); ?>" style="background-image:linear-gradient(0deg,rgba(0,0,0,.78),rgba(0,0,0,.08)),url('https://images.unsplash.com/photo-1561439740-e8863909de77?auto=format&fit=crop&q=82&w=1400');"><span>Fire Protection</span><strong>Portable Fire Pumps</strong><em>Shop pumps →</em></a>
-      <a class="dmz-image-tile" href="<?php echo esc_url(dmz_product_category_url('accessories')); ?>" style="background-image:linear-gradient(0deg,rgba(0,0,0,.78),rgba(0,0,0,.05)),url('https://images.unsplash.com/photo-1690902963605-eb14875288cd?auto=format&fit=crop&q=82&w=1200');"><span>Water Delivery</span><strong>Hose & Accessories</strong><em>View accessories →</em></a>
-      <a class="dmz-image-tile" href="<?php echo esc_url(dmz_product_category_url('parts')); ?>" style="background-image:linear-gradient(0deg,rgba(0,0,0,.78),rgba(0,0,0,.05)),url('https://images.unsplash.com/photo-1774599730994-79221ac4e74d?auto=format&fit=crop&q=82&w=1200');"><span>Keep It Running</span><strong>Parts & Components</strong><em>Shop parts →</em></a>
-    </div>
-  </div>
-</section>
-
-<section class="dmz-section alt">
-  <div class="dmz-container">
-    <div class="dmz-section-head"><div><div class="dmz-eyebrow">Featured Equipment</div><h2>Shop DMZ Pumps.</h2></div><p>Current equipment from the DMZ Pumps catalog.</p></div>
-    <?php if (class_exists('WooCommerce')):
-      $featured_products = wc_get_products(['limit'=>6,'status'=>'publish','orderby'=>'date','order'=>'DESC']);
-      if ($featured_products): ?>
-        <div class="dmz-featured-grid">
-          <?php foreach ($featured_products as $product): ?>
-            <article class="dmz-product-card">
-              <a class="dmz-product-image" href="<?php echo esc_url($product->get_permalink()); ?>">
-                <?php echo $product->get_image('woocommerce_single'); ?>
-                <?php if ($product->is_on_sale()): ?><span class="dmz-sale-badge">Sale</span><?php endif; ?>
-              </a>
-              <div class="dmz-product-info">
-                <div class="dmz-product-kicker">DMZ Equipment</div>
-                <h3><a href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a></h3>
-                <div class="dmz-product-price"><?php echo wp_kses_post($product->get_price_html()); ?></div>
-                <div class="dmz-product-actions"><a class="dmz-btn red" href="<?php echo esc_url($product->get_permalink()); ?>">View Product</a><?php if ($product->is_purchasable() && $product->is_in_stock()): ?><a class="dmz-btn ghost" href="<?php echo esc_url($product->add_to_cart_url()); ?>">Add to Cart</a><?php endif; ?></div>
-              </div>
-            </article>
-          <?php endforeach; ?>
+    <div class="dmz-home-hero-grid">
+      <div class="dmz-slider" data-dmz-slider>
+        <article class="dmz-slide is-active" style="background-image:url('https://images.pexels.com/photos/5964982/pexels-photo-5964982.jpeg?auto=compress&dpr=1&w=1800');">
+          <div class="dmz-slide-inner">
+            <div class="dmz-slide-kicker">Portable Fire Pump Systems</div>
+            <h1>Water where you need it.</h1>
+            <p>Field-ready portable pump systems for wildfire response, property protection, remote water supply, and emergency transfer.</p>
+            <div class="dmz-actions"><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">Shop Fire Pumps</a></div>
+          </div>
+        </article>
+        <article class="dmz-slide" style="background-image:url('https://images.pexels.com/photos/5964752/pexels-photo-5964752.jpeg?auto=compress&dpr=1&w=1800');">
+          <div class="dmz-slide-inner">
+            <div class="dmz-slide-kicker">Hose • Valves • Connections</div>
+            <h2>Build the complete system.</h2>
+            <p>Pair pumps with the hose, fittings, strainers, valves, and accessories needed for a dependable field setup.</p>
+            <div class="dmz-actions"><a class="dmz-btn red" href="<?php echo esc_url(dmz_product_category_url('accessories')); ?>">Shop Accessories</a></div>
+          </div>
+        </article>
+        <article class="dmz-slide" style="background-image:url('https://images.pexels.com/photos/12274593/pexels-photo-12274593.jpeg?auto=compress&dpr=1&w=1800');">
+          <div class="dmz-slide-inner">
+            <div class="dmz-slide-kicker">Emergency Water Movement</div>
+            <h2>Simple equipment. Serious work.</h2>
+            <p>DMZ Pumps is built around straightforward, serviceable equipment for crews that need water moved quickly and reliably.</p>
+            <div class="dmz-actions"><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">View Equipment</a></div>
+          </div>
+        </article>
+        <button class="dmz-slide-arrow dmz-slide-prev" type="button" aria-label="Previous slide">‹</button>
+        <button class="dmz-slide-arrow dmz-slide-next" type="button" aria-label="Next slide">›</button>
+        <div class="dmz-slide-controls" role="tablist" aria-label="Homepage slides">
+          <button class="dmz-slide-dot is-active" type="button" aria-label="Show slide 1" aria-selected="true"></button>
+          <button class="dmz-slide-dot" type="button" aria-label="Show slide 2" aria-selected="false"></button>
+          <button class="dmz-slide-dot" type="button" aria-label="Show slide 3" aria-selected="false"></button>
         </div>
-      <?php endif; ?>
-    <?php endif; ?>
-  </div>
-</section>
-
-<section class="dmz-photo-banner" style="background-image:linear-gradient(90deg,rgba(13,13,13,.9),rgba(13,13,13,.42)),url('https://images.unsplash.com/photo-1774599730994-79221ac4e74d?auto=format&fit=crop&q=85&w=2200');">
-  <div class="dmz-container"><div class="dmz-photo-banner-copy"><div class="dmz-eyebrow">Real Field Conditions</div><h2>Simple equipment.<br>Serious performance.</h2><p>Portable configurations, serviceable components, and practical layouts for emergency response, property protection, water transfer, and utility work.</p><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">View All Equipment</a></div></div>
-</section>
-
-<section class="dmz-section">
-  <div class="dmz-container">
-    <div class="dmz-section-head"><div><div class="dmz-eyebrow">Applications</div><h2>One pump platform. Many jobs.</h2></div></div>
-    <div class="dmz-industries visual">
-      <div class="dmz-industry"><span>01</span><h3>Wildland & Property</h3><p>Drafting, hose lays, structure defense, and remote water access.</p></div>
-      <div class="dmz-industry"><span>02</span><h3>Municipal & Emergency</h3><p>Backup pumping, tank transfer, dewatering, and response operations.</p></div>
-      <div class="dmz-industry"><span>03</span><h3>Industrial & Utility</h3><p>Portable water movement where durability and straightforward service matter.</p></div>
+      </div>
+      <div class="dmz-promo-stack">
+        <a class="dmz-promo-card" href="<?php echo esc_url(dmz_product_category_url('portable-fire-pumps')); ?>" style="background-image:url('https://images.pexels.com/photos/5964982/pexels-photo-5964982.jpeg?auto=compress&dpr=1&w=900');"><span>Portable Fire Pumps</span></a>
+        <a class="dmz-promo-card" href="<?php echo esc_url(dmz_product_category_url('parts')); ?>" style="background-image:url('https://images.pexels.com/photos/12274593/pexels-photo-12274593.jpeg?auto=compress&dpr=1&w=900');"><span>Pump Parts</span></a>
+        <a class="dmz-promo-card" href="<?php echo esc_url(dmz_product_category_url('accessories')); ?>" style="background-image:url('https://images.pexels.com/photos/5964752/pexels-photo-5964752.jpeg?auto=compress&dpr=1&w=900');"><span>Hose & Accessories</span></a>
+      </div>
+    </div>
+    <div class="dmz-application-strip">
+      <a class="dmz-app-link" href="<?php echo esc_url(dmz_shop_url()); ?>"><span class="dmz-app-icon">🔥</span><span>Fire Protection</span></a>
+      <a class="dmz-app-link" href="<?php echo esc_url(dmz_shop_url()); ?>"><span class="dmz-app-icon">💧</span><span>Water Transfer</span></a>
+      <a class="dmz-app-link" href="<?php echo esc_url(dmz_shop_url()); ?>"><span class="dmz-app-icon">⚙</span><span>Industrial & Utility</span></a>
     </div>
   </div>
 </section>
 
-<section class="dmz-section dmz-cta-red"><div class="dmz-container dmz-cta-grid"><div><div class="dmz-eyebrow light">Need Help Choosing?</div><h2>Tell us the flow, pressure, lift, and application.</h2></div><div><a class="dmz-btn dark" href="<?php echo esc_url(get_page_by_path('contact') ? dmz_page_url('contact') : dmz_shop_url()); ?>"><?php echo get_page_by_path('contact') ? 'Talk to DMZ Pumps' : 'Shop Pumps'; ?></a></div></div></section>
+<section class="dmz-section compact"><div class="dmz-container"><div class="dmz-section-titlebar"><div><div class="dmz-eyebrow">Featured Equipment</div><h2>Shop DMZ Pumps.</h2></div><p>Portable fire pumps and field equipment built for straightforward deployment and service.</p></div>
+<?php if (class_exists('WooCommerce')): $featured_products=wc_get_products(['limit'=>6,'status'=>'publish','orderby'=>'date','order'=>'DESC']); if($featured_products): ?><div class="dmz-featured-grid"><?php foreach($featured_products as $product): ?><article class="dmz-product-card"><a class="dmz-product-image" href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo $product->get_image('woocommerce_single'); ?><?php if($product->is_on_sale()): ?><span class="dmz-sale-badge">Sale</span><?php endif; ?></a><div class="dmz-product-info"><div class="dmz-product-kicker">DMZ Equipment</div><h3><a href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a></h3><div class="dmz-product-price"><?php echo wp_kses_post($product->get_price_html()); ?></div><div class="dmz-product-actions"><a class="dmz-btn red" href="<?php echo esc_url($product->get_permalink()); ?>">View Product</a><?php if($product->is_purchasable()&&$product->is_in_stock()): ?><a class="dmz-btn ghost" href="<?php echo esc_url($product->add_to_cart_url()); ?>">Add to Cart</a><?php endif; ?></div></div></article><?php endforeach; ?></div><?php endif; endif; ?>
+</div></section>
+
+<section class="dmz-section alt compact"><div class="dmz-container"><div class="dmz-section-titlebar"><div><div class="dmz-eyebrow">Applications</div><h2>Equipment for real field conditions.</h2></div><p>Browse by application with a more visual industrial equipment layout.</p></div><div class="dmz-image-feature-grid"><div class="dmz-image-feature" style="background-image:url('https://images.pexels.com/photos/5964752/pexels-photo-5964752.jpeg?auto=compress&dpr=1&w=1500');"><div class="dmz-image-feature-content"><h3>Fire response & structure protection</h3><p>Build a portable water-moving setup around the pump, hose, nozzle, and fittings your application requires.</p><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">Explore Equipment</a></div></div><div class="dmz-image-feature-side"><div class="dmz-image-feature-small" style="background-image:url('https://images.pexels.com/photos/5964982/pexels-photo-5964982.jpeg?auto=compress&dpr=1&w=1000');"><div class="dmz-image-feature-content"><h3>Deployment Ready</h3></div></div><div class="dmz-image-feature-small" style="background-image:url('https://images.pexels.com/photos/12274593/pexels-photo-12274593.jpeg?auto=compress&dpr=1&w=1000');"><div class="dmz-image-feature-content"><h3>Parts & Connections</h3></div></div></div></div></div></section>
+
+<section class="dmz-service-banner" style="background-image:url('https://images.pexels.com/photos/12274593/pexels-photo-12274593.jpeg?auto=compress&dpr=1&w=1800');"><div class="dmz-container"><div class="dmz-eyebrow">DMZ Pumps Support</div><h2>Need help matching a pump to your application?</h2><p>Tell us your water source, hose run, elevation change, desired flow, and pressure requirements and we can help narrow down the right setup.</p><?php if(get_page_by_path('contact')): ?><a class="dmz-btn red" href="<?php echo esc_url(dmz_page_url('contact')); ?>">Contact DMZ Pumps</a><?php else: ?><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">Shop Equipment</a><?php endif; ?></div></section>
+
+<section class="dmz-section dmz-band"><div class="dmz-container dmz-band-grid"><div><div class="dmz-eyebrow">DMZ Pumps</div><h2>Built for fire, field, and water transfer.</h2></div><div class="dmz-checks"><div class="dmz-check">Portable configurations</div><div class="dmz-check">High-pressure applications</div><div class="dmz-check">Field-serviceable components</div><div class="dmz-check">Parts & accessory support</div><div class="dmz-check">Commercial equipment sales</div><div class="dmz-check">WooCommerce checkout ready</div></div></div></section>
+<section class="dmz-section compact"><div class="dmz-container"><div class="dmz-section-titlebar"><div><div class="dmz-eyebrow">Need Help Choosing?</div><h2>Tell us the flow, pressure, lift, and application.</h2></div><div><?php if(get_page_by_path('contact')): ?><a class="dmz-btn red" href="<?php echo esc_url(dmz_page_url('contact')); ?>">Talk to DMZ Pumps</a><?php else: ?><a class="dmz-btn red" href="<?php echo esc_url(dmz_shop_url()); ?>">Shop Pumps</a><?php endif; ?></div></div><div class="dmz-source-note">Homepage stock photography sourced from Pexels and used under its free-use license.</div></div></section>
 </main>
 <?php get_footer(); ?>
