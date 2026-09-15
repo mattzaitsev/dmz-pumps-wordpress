@@ -27,7 +27,6 @@
         <a class="dmz-promo-card" href="<?php echo esc_url(dmz_product_category_url('accessories')); ?>" style="background-image:url('https://images.pexels.com/photos/5964752/pexels-photo-5964752.jpeg?auto=compress&dpr=1&w=900');"><span>Hose & Accessories</span></a>
       </div>
     </div>
-    <div class="dmz-application-strip"><a class="dmz-app-link" href="<?php echo esc_url(dmz_shop_url()); ?>"><span class="dmz-app-icon">🔥</span><span>Fire Protection</span></a><a class="dmz-app-link" href="<?php echo esc_url(dmz_shop_url()); ?>"><span class="dmz-app-icon">💧</span><span>Water Transfer</span></a><a class="dmz-app-link" href="<?php echo esc_url(dmz_shop_url()); ?>"><span class="dmz-app-icon">⚙</span><span>Industrial & Utility</span></a></div>
   </div>
 </section>
 
