@@ -1,102 +1,23 @@
 <?php get_header(); ?>
 <?php if (is_shop() && class_exists('WooCommerce')) :
-    $shop_url = wc_get_page_permalink('shop');
-    $active   = isset($_GET['dmz_type']) ? sanitize_key(wp_unslash($_GET['dmz_type'])) : 'all';
-    $search   = isset($_GET['dmz_search']) ? sanitize_text_field(wp_unslash($_GET['dmz_search'])) : '';
-    $products = wc_get_products([
-        'limit'   => -1,
-        'status'  => 'publish',
-        'orderby' => 'date',
-        'order'   => 'DESC',
-    ]);
-
-    $groups = [
-        'pumps'      => ['label' => 'Fire Pumps', 'terms' => ['pump', 'gx200']],
-        'hose'       => ['label' => 'Hose & Accessories', 'terms' => ['hose', 'extension', 'accessor']],
-        'protection' => ['label' => 'Covers & Warranty', 'terms' => ['cover', 'warranty']],
-    ];
-
-    $matches_group = function($product, $group) use ($groups) {
-        if (!isset($groups[$group])) return true;
-        $haystack = strtolower($product->get_name() . ' ' . wp_strip_all_tags($product->get_short_description()));
-        foreach ($groups[$group]['terms'] as $term) {
-            if (strpos($haystack, $term) !== false) return true;
-        }
-        return false;
-    };
-
-    $visible = array_values(array_filter($products, function($product) use ($active, $search, $matches_group) {
-        if ($active !== 'all' && !$matches_group($product, $active)) return false;
-        if ($search !== '') {
-            $haystack = strtolower($product->get_name() . ' ' . wp_strip_all_tags($product->get_short_description()));
-            if (strpos($haystack, strtolower($search)) === false) return false;
-        }
-        return true;
-    }));
-
-    usort($visible, function($a, $b) {
-        $a_pump = (stripos($a->get_name(), 'pump system') !== false || stripos($a->get_name(), 'gx200') !== false) ? 1 : 0;
-        $b_pump = (stripos($b->get_name(), 'pump system') !== false || stripos($b->get_name(), 'gx200') !== false) ? 1 : 0;
-        return $b_pump <=> $a_pump;
-    });
+$shop_url=wc_get_page_permalink('shop');
+$active=isset($_GET['dmz_type'])?sanitize_key(wp_unslash($_GET['dmz_type'])):'all';
+$search=isset($_GET['dmz_search'])?sanitize_text_field(wp_unslash($_GET['dmz_search'])):'';
+$sort=isset($_GET['dmz_sort'])?sanitize_key(wp_unslash($_GET['dmz_sort'])):'featured';
+$products=wc_get_products(['limit'=>-1,'status'=>'publish','orderby'=>'date','order'=>'DESC']);
+$groups=['pumps'=>['label'=>'Fire Pump Systems','terms'=>['pump','gx200']],'hose'=>['label'=>'Hose & Accessories','terms'=>['hose','extension','accessor']],'protection'=>['label'=>'Covers & Protection','terms'=>['cover']],'warranty'=>['label'=>'Warranty','terms'=>['warranty']]];
+$matches=function($p,$g)use($groups){if(!isset($groups[$g]))return true;$h=strtolower($p->get_name().' '.wp_strip_all_tags($p->get_short_description()));foreach($groups[$g]['terms'] as $t)if(strpos($h,$t)!==false)return true;return false;};
+$visible=array_values(array_filter($products,function($p)use($active,$search,$matches){if($active!=='all'&&!$matches($p,$active))return false;if($search!==''){ $h=strtolower($p->get_name().' '.wp_strip_all_tags($p->get_short_description()));if(strpos($h,strtolower($search))===false)return false;}return true;}));
+usort($visible,function($a,$b)use($sort){if($sort==='price-low')return(float)$a->get_price()<=>(float)$b->get_price();if($sort==='price-high')return(float)$b->get_price()<=>(float)$a->get_price();if($sort==='name')return strcasecmp($a->get_name(),$b->get_name());$ap=(stripos($a->get_name(),'pump system')!==false||stripos($a->get_name(),'gx200')!==false)?1:0;$bp=(stripos($b->get_name(),'pump system')!==false||stripos($b->get_name(),'gx200')!==false)?1:0;return $bp<=>$ap;});
 ?>
-<main class="dmz-shop-page">
-  <section class="dmz-shop-hero">
-    <div class="dmz-container">
-      <div class="dmz-eyebrow">DMZ Equipment</div>
-      <h1>Shop</h1>
-      <p>Portable fire pump systems, hose, protection, and field-ready accessories.</p>
-    </div>
-  </section>
-
-  <section class="dmz-shop-body">
-    <div class="dmz-container">
-      <div class="dmz-shop-toolbar" aria-label="Shop filters">
-        <nav class="dmz-shop-filters" aria-label="Product types">
-          <a class="<?php echo $active === 'all' ? 'is-active' : ''; ?>" href="<?php echo esc_url($shop_url); ?>">All Products</a>
-          <?php foreach ($groups as $key => $group) : ?>
-            <a class="<?php echo $active === $key ? 'is-active' : ''; ?>" href="<?php echo esc_url(add_query_arg('dmz_type', $key, $shop_url)); ?>"><?php echo esc_html($group['label']); ?></a>
-          <?php endforeach; ?>
-        </nav>
-        <form class="dmz-shop-search" method="get" action="<?php echo esc_url($shop_url); ?>" role="search">
-          <?php if ($active !== 'all') : ?><input type="hidden" name="dmz_type" value="<?php echo esc_attr($active); ?>"><?php endif; ?>
-          <label class="screen-reader-text" for="dmz-product-search">Search products</label>
-          <input id="dmz-product-search" type="search" name="dmz_search" value="<?php echo esc_attr($search); ?>" placeholder="Search equipment…">
-          <button type="submit">Search</button>
-        </form>
-      </div>
-
-      <div class="dmz-shop-meta"><strong><?php echo esc_html(count($visible)); ?></strong> <?php echo count($visible) === 1 ? 'product' : 'products'; ?></div>
-
-      <?php if ($visible) : ?>
-        <div class="dmz-shop-grid">
-          <?php foreach ($visible as $product) : ?>
-            <article class="dmz-shop-card<?php echo (stripos($product->get_name(), 'pump system') !== false || stripos($product->get_name(), 'gx200') !== false) ? ' is-primary' : ''; ?>">
-              <a class="dmz-shop-card-image" href="<?php echo esc_url($product->get_permalink()); ?>">
-                <?php echo $product->get_image('woocommerce_single'); ?>
-                <?php if ($product->is_on_sale()) : ?><span class="dmz-sale-badge">Sale</span><?php endif; ?>
-              </a>
-              <div class="dmz-shop-card-body">
-                <div class="dmz-product-kicker"><?php echo (stripos($product->get_name(), 'pump system') !== false || stripos($product->get_name(), 'gx200') !== false) ? 'Featured Pump System' : 'DMZ Equipment'; ?></div>
-                <h2><a href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a></h2>
-                <div class="dmz-shop-card-price"><?php echo wp_kses_post($product->get_price_html()); ?></div>
-                <div class="dmz-shop-card-actions">
-                  <a class="dmz-btn red" href="<?php echo esc_url($product->get_permalink()); ?>">View Details</a>
-                  <?php if ($product->is_purchasable() && $product->is_in_stock()) : ?><a class="dmz-btn ghost" href="<?php echo esc_url($product->add_to_cart_url()); ?>">Add to Cart</a><?php endif; ?>
-                </div>
-              </div>
-            </article>
-          <?php endforeach; ?>
-        </div>
-      <?php else : ?>
-        <div class="dmz-shop-empty"><h2>No equipment found.</h2><p>Try another product type or search term.</p><a class="dmz-btn red" href="<?php echo esc_url($shop_url); ?>">View All Products</a></div>
-      <?php endif; ?>
-    </div>
-  </section>
-</main>
-<?php else : ?>
-<main class="dmz-content">
-  <?php woocommerce_content(); ?>
-</main>
-<?php endif; ?>
-<?php get_footer(); ?>
+<main class="dmz-shop-page"><div class="dmz-container">
+<div class="dmz-shop-breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Home</a> <span>›</span> Shop Equipment</div>
+<section class="dmz-catalog-intro"><div class="dmz-eyebrow">DMZ PUMPS CATALOG</div><h1>Fire Pump Systems & Equipment</h1><p>Field-ready pump systems, hose, protection and accessories for fire response and water transfer.</p></section>
+<form class="dmz-catalog-toolbar" method="get" action="<?php echo esc_url($shop_url); ?>"><div class="dmz-view-count">Showing <strong><?php echo esc_html(count($visible)); ?></strong> products</div><div class="dmz-toolbar-controls"><input type="search" name="dmz_search" value="<?php echo esc_attr($search); ?>" placeholder="Search products…"><?php if($active!=='all'):?><input type="hidden" name="dmz_type" value="<?php echo esc_attr($active); ?>"><?php endif;?><select name="dmz_sort" onchange="this.form.submit()"><option value="featured" <?php selected($sort,'featured');?>>Featured</option><option value="price-low" <?php selected($sort,'price-low');?>>Price: Low to High</option><option value="price-high" <?php selected($sort,'price-high');?>>Price: High to Low</option><option value="name" <?php selected($sort,'name');?>>Product Name</option></select><button type="submit">Search</button></div></form>
+<div class="dmz-catalog-layout">
+<aside class="dmz-catalog-sidebar"><h2>Shopping Options</h2><a class="<?php echo $active==='all'?'active':'';?>" href="<?php echo esc_url($shop_url);?>">All Equipment <span>›</span></a><?php foreach($groups as $key=>$group):?><a class="<?php echo $active===$key?'active':'';?>" href="<?php echo esc_url(add_query_arg('dmz_type',$key,$shop_url));?>"><?php echo esc_html($group['label']);?><span>›</span></a><?php endforeach;?><div class="dmz-sidebar-help"><strong>NEED HELP CHOOSING?</strong><p>Tell us your water source, hose run, elevation and application.</p><a href="<?php echo esc_url(home_url('/contact/'));?>">CONTACT DMZ PUMPS</a></div></aside>
+<section class="dmz-catalog-products">
+<?php if($visible):?><div class="dmz-catalog-grid"><?php foreach($visible as $product):?><article class="dmz-catalog-card"><a class="dmz-catalog-image" href="<?php echo esc_url($product->get_permalink());?>"><?php echo $product->get_image('woocommerce_single');?><?php if($product->is_on_sale()):?><span class="dmz-catalog-sale">SALE</span><?php endif;?></a><div class="dmz-catalog-info"><div class="dmz-catalog-brand">DMZ PUMPS</div><h2><a href="<?php echo esc_url($product->get_permalink());?>"><?php echo esc_html($product->get_name());?></a></h2><div class="dmz-catalog-price"><?php echo wp_kses_post($product->get_price_html());?></div><?php if($product->is_purchasable()&&$product->is_in_stock()):?><a class="dmz-catalog-cart" href="<?php echo esc_url($product->add_to_cart_url());?>">ADD TO CART</a><?php endif;?></div></article><?php endforeach;?></div><?php else:?><div class="dmz-shop-empty"><h2>No equipment found.</h2><p>Try another category or search term.</p><a class="dmz-btn red" href="<?php echo esc_url($shop_url);?>">View All Products</a></div><?php endif;?>
+</section></div></div></main>
+<?php else:?><main class="dmz-content"><?php woocommerce_content();?></main><?php endif;?>
+<?php get_footer();?>
