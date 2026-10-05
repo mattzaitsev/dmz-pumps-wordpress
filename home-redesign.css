@@ -5,3 +5,12 @@
 
 @media(max-width:1050px){.dmz-home-hero-grid{grid-template-columns:1fr}.dmz-promo-stack{grid-template-columns:repeat(3,1fr);grid-template-rows:none}.dmz-promo-card{min-height:180px}.dmz-image-feature-grid{grid-template-columns:1fr}.dmz-image-feature-side{grid-template-columns:1fr 1fr;grid-template-rows:none}.dmz-image-feature-small{min-height:240px}.dmz-application-strip{grid-template-columns:1fr}.dmz-featured-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.dmz-product-card--spotlight{grid-template-columns:1fr 1fr!important}.dmz-product-image img{height:240px!important}}
 @media(max-width:760px){.dmz-home-intro{padding-top:16px}.dmz-slider{min-height:500px}.dmz-slide-inner{min-height:500px;padding:42px 26px}.dmz-slide h1,.dmz-slide h2{font-size:46px}.dmz-slide p{font-size:15px}.dmz-slide-arrow{display:none}.dmz-promo-stack{grid-template-columns:1fr}.dmz-promo-card{min-height:170px}.dmz-section.compact{padding:48px 0}.dmz-section-titlebar{display:block}.dmz-section-titlebar p{margin-top:14px}.dmz-image-feature{min-height:360px}.dmz-image-feature-side{grid-template-columns:1fr}.dmz-image-feature-small{min-height:200px}.dmz-featured-grid{grid-template-columns:1fr!important}.dmz-product-card--spotlight{grid-column:auto;display:flex!important;min-height:0!important}.dmz-product-card--spotlight .dmz-product-image{min-height:300px;padding:22px}.dmz-product-card--spotlight .dmz-product-image img{height:280px!important}.dmz-product-card--spotlight .dmz-product-info{padding:28px!important}.dmz-product-info{padding:22px!important}.dmz-product-image{min-height:240px;padding:18px}.dmz-product-image img{height:220px!important}.dmz-product-actions .dmz-btn{flex:1;text-align:center}}
+
+
+/* Local delivery announcement */
+.dmz-delivery-banner{background:#b82025;color:#fff;text-transform:uppercase;letter-spacing:.08em;font-size:13px;font-weight:700}
+.dmz-delivery-banner .dmz-container{min-height:42px;display:flex;align-items:center;justify-content:center;gap:14px}
+.dmz-delivery-banner strong{font-weight:900;letter-spacing:.13em}
+.dmz-delivery-banner span+span{padding-left:14px;border-left:1px solid rgba(255,255,255,.4)}
+.dmz-delivery-detail{font-size:11px;opacity:.82;font-weight:600}
+@media(max-width:700px){.dmz-delivery-banner .dmz-container{min-height:48px;gap:8px;flex-wrap:wrap;padding-top:7px;padding-bottom:7px}.dmz-delivery-detail{display:none}.dmz-delivery-banner span+span{border-left:0;padding-left:0}.dmz-home-intro{padding-top:20px}}
