@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <main class="dmz-home-shell">
+<div class="dmz-delivery-banner"><div class="dmz-container"><strong>FREE DELIVERY</strong><span>San Diego &amp; Los Angeles</span><span class="dmz-delivery-detail">Local delivery on complete pump systems</span></div></div>
 <section class="dmz-home-intro">
   <div class="dmz-container">
     <div class="dmz-home-hero-grid">
